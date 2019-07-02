@@ -1,5 +1,5 @@
 {
-	"name": "@konfirm/iso7604",
+	"name": "@konfirm/iso7064",
 	"version": "1.0.0",
 	"description": "ISO/IEC 7064:2003 - Check character systems ",
 	"main": "main.js",
