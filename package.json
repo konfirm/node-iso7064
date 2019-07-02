@@ -1,10 +1,17 @@
 {
 	"name": "@konfirm/iso7604",
 	"version": "0.0.0",
-	"description": "",
+	"description": "ISO/IEC 7064:2003 - Check character systems ",
 	"main": "main.js",
 	"scripts": {
 		"test": "./node_modules/.bin/lab -vcl"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/konfirm/node-iso7064.git"
+	},
+	"bugs": {
+		"url": "https://github.com/konfirm/node-iso7064/issues"
 	},
 	"keywords": [
 		"iso",
@@ -30,6 +37,10 @@
 	"author": "Rogier Spieker <rogier+iso@konfirm.eu>",
 	"license": "MIT",
 	"devDependencies": {
-		"@konfirm/labrat": "^2.0.0"
+		"@konfirm/labrat": "^2.0.0",
+		"eslint": "^5.16.0",
+		"eslint-config-prettier": "^4.3.0",
+		"eslint-plugin-prettier": "^3.1.0",
+		"prettier": "^1.17.1"
 	}
 }
