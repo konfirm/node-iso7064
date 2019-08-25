@@ -1,3 +1,4 @@
+const Alphabet = require('@konfirm/alphabet');
 const PureISO7064 = require('../Abstract/PureISO7064.js');
 
 /**
@@ -70,7 +71,7 @@ class Mod37_2 extends PureISO7064 {
 	 * @memberof Mod37_2
 	 */
 	static get indices() {
-		return '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		return this.alphabet.slice(0, -1);
 	}
 
 	/**
@@ -81,7 +82,7 @@ class Mod37_2 extends PureISO7064 {
 	 * @memberof Mod37_2
 	 */
 	static get alphabet() {
-		return `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*`;
+		return Alphabet.from('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*');
 	}
 }
 

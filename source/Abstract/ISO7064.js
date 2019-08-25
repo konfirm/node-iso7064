@@ -40,7 +40,9 @@ class ISO7064 {
 	 * @static
 	 * @memberof ISO7064
 	 */
-	static get indices() {}
+	static get indices() {
+		return this.alphabet;
+	}
 
 	/**
 	 * The checksum alphabet
@@ -49,9 +51,7 @@ class ISO7064 {
 	 * @static
 	 * @memberof ISO7064
 	 */
-	static get alphabet() {
-		return this.indices;
-	}
+	static get alphabet() {}
 
 	/**
 	 * The modulus

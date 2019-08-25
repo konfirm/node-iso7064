@@ -46,12 +46,12 @@ import { Mod97_10 } from '@konfirm/iso7064';
 
 All algorithm implementations have the same methods, please refer to their respective documentation for the details on the exact in- and outputs.
 
-| method    | input           | output    | description                                                 |
-| --------- | --------------- | --------- | ----------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized value used for checksum calculations         |
-| checksum  | `string|number` | `string`  | the single or double digit/character checksum               |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)           |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input |
+| method    | input            | output    | description                                                 |
+| --------- | ---------------- | --------- | ----------------------------------------------------------- |
+| normalize | `string\|number` | `string`  | the normalized value used for checksum calculations         |
+| checksum  | `string\|number` | `string`  | the single or double digit/character checksum               |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)           |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input |
 
 ```js
 const { Mod11_2, Mod11_10 } = require('@konfirm/iso7064');
@@ -104,15 +104,15 @@ This is the base class of the package, it contains all properties and methods us
 
 ### Properties
 
-| property      | value       | description                                                        |
-| ------------- | ----------- | ------------------------------------------------------------------ |
-| algorithm     | `undefined` | the name of the algprithm                                          |
-| specification | `undefined` | the full specification and algorithm name                          |
-| designation   | `0`         | the designated number in the ISO 7064 standard                     |
-| modulus       | `undefined` | the modulus of the algorithm                                       |
-| indices       | `undefined` | the allowed input digits/characters                                |
-| alphabet      | `undefined` | the allowed checksum digits/characters (uses `indices` if ommited) |
-| double        | `false`     | does the checksum consist of two digits/characters instead of one  |
+| property      | value                                                                                                                                                                                     | description                                                       |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| algorithm     | `undefined`                                                                                                                                                                               | the name of the algprithm                                         |
+| specification | `undefined`                                                                                                                                                                               | the full specification and algorithm name                         |
+| designation   | `0`                                                                                                                                                                                       | the designated number in the ISO 7064 standard                    |
+| modulus       | `undefined`                                                                                                                                                                               | the modulus of the algorithm                                      |
+| indices       | [Alphabet](https://github.com/konfirm/node-alphabet)`| the [Alphabet instance](https://github.com/konfirm/node-alphabet) with allowed input digits/characters (uses`alphabet` if ommited) |
+| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet)undefined` | the [Alphabet instance](https://github.com/konfirm/node-alphabet) allowed checksum digits/characters                     |
+| double        | `false`                                                                                                                                                                                   | does the checksum consist of two digits/characters instead of one |
 
 ### Methods
 
@@ -173,16 +173,16 @@ The ISO 7064, MOD 11-2 algorithm is used by several standards, including
 
 ### Properties
 
-| property      | type    | value                |
-| ------------- | ------- | -------------------- |
-| algorithm     | string  | `MOD 11-2`           |
-| specification | string  | `ISO 7064, MOD 11-2` |
-| designation   | number  | `1`                  |
-| modulus       | number  | `11`                 |
-| radix         | number  | `2`                  |
-| indices       | string  | `0123456789`         |
-| alphabet      | string  | `0123456789X`        |
-| double        | boolean | `false`              |
+| property      | type                                                 | value                |
+| ------------- | ---------------------------------------------------- | -------------------- |
+| algorithm     | string                                               | `MOD 11-2`           |
+| specification | string                                               | `ISO 7064, MOD 11-2` |
+| designation   | number                                               | `1`                  |
+| modulus       | number                                               | `11`                 |
+| radix         | number                                               | `2`                  |
+| indices       | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789`         |
+| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789X`        |
+| double        | boolean                                              | `false`              |
 
 ### Methods
 
@@ -201,15 +201,15 @@ The ISO 7064, MOD 11,10 algorithm is used by several standards, including
 
 ### Properties
 
-| property      | type    | value                 |
-| ------------- | ------- | --------------------- |
-| algorithm     | string  | `MOD 11,10`           |
-| specification | string  | `ISO 7064, MOD 11,10` |
-| designation   | number  | `6`                   |
-| modulus       | number  | `10`                  |
-| indices       | string  | `0123456789`          |
-| alphabet      | string  | `0123456789`          |
-| double        | boolean | `false`               |
+| property      | type                                                 | value                 |
+| ------------- | ---------------------------------------------------- | --------------------- |
+| algorithm     | string                                               | `MOD 11,10`           |
+| specification | string                                               | `ISO 7064, MOD 11,10` |
+| designation   | number                                               | `6`                   |
+| modulus       | number                                               | `10`                  |
+| indices       | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789`          |
+| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789`          |
+| double        | boolean                                              | `false`               |
 
 ### Methods
 
@@ -224,15 +224,15 @@ The ISO 7064, MOD 11,10 algorithm is used by several standards, including
 
 ### Properties
 
-| property      | type    | value                        |
-| ------------- | ------- | ---------------------------- |
-| algorithm     | string  | `MOD 27,26`                  |
-| specification | string  | `ISO 7064, MOD 27,26`        |
-| designation   | number  | `7`                          |
-| modulus       | number  | `26`                         |
-| indices       | string  | `ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
-| alphabet      | string  | `ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
-| double        | boolean | `false`                      |
+| property      | type                                                 | value                        |
+| ------------- | ---------------------------------------------------- | ---------------------------- |
+| algorithm     | string                                               | `MOD 27,26`                  |
+| specification | string                                               | `ISO 7064, MOD 27,26`        |
+| designation   | number                                               | `7`                          |
+| modulus       | number                                               | `26`                         |
+| indices       | [Alphabet](https://github.com/konfirm/node-alphabet) | `ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
+| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet) | `ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
+| double        | boolean                                              | `false`                      |
 
 ### Methods
 
@@ -251,16 +251,16 @@ The ISO 7064, MOD 37-2 algorithm is used by several standards, including
 
 ### Properties
 
-| property      | type    | value                                   |
-| ------------- | ------- | --------------------------------------- |
-| algorithm     | string  | `MOD 37-2`                              |
-| specification | string  | `ISO 7064, MOD 37-2`                    |
-| designation   | number  | `2`                                     |
-| modulus       | number  | `37`                                    |
-| radix         | number  | `2`                                     |
-| indices       | string  | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ`  |
-| alphabet      | string  | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*` |
-| double        | boolean | `false`                                 |
+| property      | type                                                 | value                                   |
+| ------------- | ---------------------------------------------------- | --------------------------------------- |
+| algorithm     | string                                               | `MOD 37-2`                              |
+| specification | string                                               | `ISO 7064, MOD 37-2`                    |
+| designation   | number                                               | `2`                                     |
+| modulus       | number                                               | `37`                                    |
+| radix         | number                                               | `2`                                     |
+| indices       | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ`  |
+| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*` |
+| double        | boolean                                              | `false`                                 |
 
 ### Methods
 
@@ -279,15 +279,15 @@ The ISO 7064, MOD 37,36 algorithm is used by several standards, including
 
 ### Properties
 
-| property      | type    | value                                  |
-| ------------- | ------- | -------------------------------------- |
-| algorithm     | string  | `MOD 37,36`                            |
-| specification | string  | `ISO 7064, MOD 37,36`                  |
-| designation   | number  | `8`                                    |
-| modulus       | number  | `36`                                   |
-| indices       | string  | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
-| alphabet      | string  | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
-| double        | boolean | `false`                                |
+| property      | type                                                 | value                                  |
+| ------------- | ---------------------------------------------------- | -------------------------------------- |
+| algorithm     | string                                               | `MOD 37,36`                            |
+| specification | string                                               | `ISO 7064, MOD 37,36`                  |
+| designation   | number                                               | `8`                                    |
+| modulus       | number                                               | `36`                                   |
+| indices       | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
+| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
+| double        | boolean                                              | `false`                                |
 
 ### Methods
 
@@ -302,16 +302,16 @@ The ISO 7064, MOD 37,36 algorithm is used by several standards, including
 
 ### Properties
 
-| property      | type    | value                 |
-| ------------- | ------- | --------------------- |
-| algorithm     | string  | `MOD 97-10`           |
-| specification | string  | `ISO 7064, MOD 97-10` |
-| designation   | number  | `3`                   |
-| modulus       | number  | `97`                  |
-| radix         | number  | `10`                  |
-| indices       | string  | `0123456789`          |
-| alphabet      | string  | `0123456789`          |
-| double        | boolean | `true`                |
+| property      | type                                                 | value                 |
+| ------------- | ---------------------------------------------------- | --------------------- |
+| algorithm     | string                                               | `MOD 97-10`           |
+| specification | string                                               | `ISO 7064, MOD 97-10` |
+| designation   | number                                               | `3`                   |
+| modulus       | number                                               | `97`                  |
+| radix         | number                                               | `10`                  |
+| indices       | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789`          |
+| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789`          |
+| double        | boolean                                              | `true`                |
 
 ### Methods
 
@@ -326,16 +326,16 @@ The ISO 7064, MOD 37,36 algorithm is used by several standards, including
 
 ### Properties
 
-| property      | type    | value                        |
-| ------------- | ------- | ---------------------------- |
-| algorithm     | string  | `MOD 661-26`                 |
-| specification | string  | `ISO 7064, MOD 661-26`       |
-| designation   | number  | `4`                          |
-| modulus       | number  | `661`                        |
-| radix         | number  | `26`                         |
-| indices       | string  | `ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
-| alphabet      | string  | `ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
-| double        | boolean | `true`                       |
+| property      | type                                                 | value                        |
+| ------------- | ---------------------------------------------------- | ---------------------------- |
+| algorithm     | string                                               | `MOD 661-26`                 |
+| specification | string                                               | `ISO 7064, MOD 661-26`       |
+| designation   | number                                               | `4`                          |
+| modulus       | number                                               | `661`                        |
+| radix         | number                                               | `26`                         |
+| indices       | [Alphabet](https://github.com/konfirm/node-alphabet) | `ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
+| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet) | `ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
+| double        | boolean                                              | `true`                       |
 
 ### Methods
 
@@ -350,16 +350,16 @@ The ISO 7064, MOD 37,36 algorithm is used by several standards, including
 
 ### Properties
 
-| property      | type    | value                                   |
-| ------------- | ------- | --------------------------------------- |
-| algorithm     | string  | `MOD 1271-36`                           |
-| specification | string  | `ISO 7064, MOD 1271-36`                 |
-| designation   | number  | `5`                                     |
-| modulus       | number  | `1271`                                  |
-| radix         | number  | `36`                                    |
-| indices       | string  | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ`  |
-| alphabet      | string  | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*` |
-| double        | boolean | `true`                                  |
+| property      | type                                                 | value                                   |
+| ------------- | ---------------------------------------------------- | --------------------------------------- |
+| algorithm     | string                                               | `MOD 1271-36`                           |
+| specification | string                                               | `ISO 7064, MOD 1271-36`                 |
+| designation   | number                                               | `5`                                     |
+| modulus       | number                                               | `1271`                                  |
+| radix         | number                                               | `36`                                    |
+| indices       | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ`  |
+| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet) | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*` |
+| double        | boolean                                              | `true`                                  |
 
 ### Methods
 

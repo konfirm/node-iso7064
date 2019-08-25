@@ -1,3 +1,4 @@
+const Alphabet = require('@konfirm/alphabet');
 const HybridISO7064 = require('../Abstract/HybridISO7064.js');
 
 /**
@@ -41,14 +42,14 @@ class Mod11_10 extends HybridISO7064 {
 	}
 
 	/**
-	 * Get the indices (allowed input characters)
+	 * Get the alphabet (allowed checksum characters)
 	 *
 	 * @readonly
 	 * @static
 	 * @memberof Mod11_10
 	 */
-	static get indices() {
-		return '0123456789';
+	static get alphabet() {
+		return Alphabet.from('0123456789');
 	}
 }
 

@@ -1,5 +1,6 @@
 /* global source, describe, it, each, expect */
 
+const Alphabet = require('@konfirm/alphabet');
 const ModSubject = source('Entity/Mod97_10');
 const ISO7064 = source('Abstract/ISO7064');
 const PureISO7064 = source('Abstract/PureISO7064');
@@ -21,8 +22,8 @@ describe('ISO7064', () => {
 			designation   | ${3}
 			modulus       | ${97}
 			radix         | ${10}
-			indices       | 0123456789
-			alphabet      | 0123456789
+			indices       | ${Alphabet.from('0123456789')}
+			alphabet      | ${Alphabet.from('0123456789')}
 			double        | ${true}
 		`('has $property with value $value', ({ property, value }, next) => {
 			expect(ModSubject[property]).to.equal(value);

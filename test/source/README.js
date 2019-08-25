@@ -1,12 +1,13 @@
 /* global source, describe, it, expect */
 
+const Alphabet = require('@konfirm/alphabet');
 const { HybridISO7064 } = require('../../main.js');
 
 describe('README.md', () => {
 	describe('Mod17_16 example', () => {
 		class Mod17_16 extends HybridISO7064 {
-			static get indices() {
-				return '0123456789ABCDEF';
+			static get alphabet() {
+				return Alphabet.from('0123456789ABCDEF');
 			}
 		}
 

@@ -41,7 +41,7 @@ class HybridISO7064 extends ISO7064 {
 				) %
 			(mod + 1);
 
-		return alphabet[(mod + 1 - sum) % mod];
+		return alphabet.charAt((mod + 1 - sum) % mod);
 	}
 }
 

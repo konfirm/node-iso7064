@@ -26,8 +26,8 @@ class PureISO7064 extends ISO7064 {
 	 */
 	static checksum(input) {
 		const { modulus, radix, double, indices, alphabet } = this;
-		const normal =
-			this.normalize(input) + alphabet[0].repeat(Number(double) + 1);
+		const initial = alphabet.charAt(0).repeat(Number(double) + 1);
+		const normal = this.normalize(input) + initial;
 		const sum = Array.from(normal)
 			.map((char) => indices.indexOf(char))
 			.reduce((carry, pos) => (carry * radix + pos) % modulus, 0);
@@ -37,7 +37,7 @@ class PureISO7064 extends ISO7064 {
 			? [(checksum / radix) | 0, checksum % radix]
 			: [checksum]
 		)
-			.map((index) => alphabet[index])
+			.map((index) => alphabet.charAt(index))
 			.join('');
 	}
 }
