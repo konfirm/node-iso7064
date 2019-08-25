@@ -20,7 +20,11 @@ class ISO7064 {
 	 * @static
 	 * @memberof ISO7064
 	 */
-	static get specification() {}
+	static get specification() {
+		const { algorithm } = this;
+
+		return algorithm ? `ISO 7064, ${algorithm}` : algorithm;
+	}
 
 	/**
 	 * The designation (always 0, except for the Modulus implementations)

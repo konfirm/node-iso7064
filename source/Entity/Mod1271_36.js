@@ -20,17 +20,6 @@ class Mod1271_36 extends PureISO7064 {
 	}
 
 	/**
-	 * Get the specification name
-	 *
-	 * @readonly
-	 * @static
-	 * @memberof Mod1271_36
-	 */
-	static get specification() {
-		return 'ISO 7064, MOD 1271-36';
-	}
-
-	/**
 	 * Get the designation
 	 *
 	 * @readonly

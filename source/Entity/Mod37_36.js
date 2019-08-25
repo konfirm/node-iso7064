@@ -20,17 +20,6 @@ class Mod37_36 extends HybridISO7064 {
 	}
 
 	/**
-	 * Get the specification name
-	 *
-	 * @readonly
-	 * @static
-	 * @memberof Mod37_36
-	 */
-	static get specification() {
-		return 'ISO 7064, MOD 37,36';
-	}
-
-	/**
 	 * Get the designation
 	 *
 	 * @readonly

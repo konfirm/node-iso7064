@@ -20,17 +20,6 @@ class Mod11_2 extends PureISO7064 {
 	}
 
 	/**
-	 * Get the specification name
-	 *
-	 * @readonly
-	 * @static
-	 * @memberof Mod11_2
-	 */
-	static get specification() {
-		return 'ISO 7064, MOD 11-2';
-	}
-
-	/**
 	 * Get the designation
 	 *
 	 * @readonly

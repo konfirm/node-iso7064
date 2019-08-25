@@ -20,17 +20,6 @@ class Mod11_10 extends HybridISO7064 {
 	}
 
 	/**
-	 * Get the specification name
-	 *
-	 * @readonly
-	 * @static
-	 * @memberof Mod11_10
-	 */
-	static get specification() {
-		return 'ISO 7064, MOD 11,10';
-	}
-
-	/**
 	 * Get the designation
 	 *
 	 * @readonly

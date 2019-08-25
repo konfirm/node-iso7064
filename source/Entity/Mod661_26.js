@@ -20,17 +20,6 @@ class Mod661_26 extends PureISO7064 {
 	}
 
 	/**
-	 * Get the specification name
-	 *
-	 * @readonly
-	 * @static
-	 * @memberof Mod661_26
-	 */
-	static get specification() {
-		return 'ISO 7064, MOD 661-26';
-	}
-
-	/**
 	 * Get the designation
 	 *
 	 * @readonly
