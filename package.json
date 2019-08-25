@@ -40,9 +40,9 @@
 	"author": "Rogier Spieker <rogier+iso@konfirm.eu>",
 	"license": "MIT",
 	"devDependencies": {
-		"@konfirm/labrat": "^2.0.1",
-		"eslint": "^6.0.1",
-		"eslint-config-prettier": "^6.0.0",
+		"@konfirm/labrat": "^2.0.2",
+		"eslint": "^6.2.2",
+		"eslint-config-prettier": "^6.1.0",
 		"eslint-plugin-prettier": "^3.1.0",
 		"prettier": "^1.18.2"
 	}
