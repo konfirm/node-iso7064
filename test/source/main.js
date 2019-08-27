@@ -1,6 +1,6 @@
 /* global source, describe, it, each, expect */
 
-const main = source('../main');
+const main = require('../../main.js');
 
 describe('ISO7064', () => {
 	it('exports', (next) => {
@@ -42,36 +42,36 @@ describe('ISO7064', () => {
 			});
 
 			it('Mod11_2 is a PureISO7064', (next) => {
-				expect(Mod11_2.prototype).to.be.instanceof(ISO7064);
-				expect(Mod11_2.prototype).to.be.instanceof(PureISO7064);
+				expect(Mod11_2).to.be.instanceof(ISO7064);
+				expect(Mod11_2).to.be.instanceof(PureISO7064);
 
 				next();
 			});
 
 			it('Mod37_2 is a PureISO7064', (next) => {
-				expect(Mod37_2.prototype).to.be.instanceof(ISO7064);
-				expect(Mod37_2.prototype).to.be.instanceof(PureISO7064);
+				expect(Mod37_2).to.be.instanceof(ISO7064);
+				expect(Mod37_2).to.be.instanceof(PureISO7064);
 
 				next();
 			});
 
 			it('Mod97_10 is a PureISO7064', (next) => {
-				expect(Mod97_10.prototype).to.be.instanceof(ISO7064);
-				expect(Mod97_10.prototype).to.be.instanceof(PureISO7064);
+				expect(Mod97_10).to.be.instanceof(ISO7064);
+				expect(Mod97_10).to.be.instanceof(PureISO7064);
 
 				next();
 			});
 
 			it('Mod661_26 is a PureISO7064', (next) => {
-				expect(Mod661_26.prototype).to.be.instanceof(ISO7064);
-				expect(Mod661_26.prototype).to.be.instanceof(PureISO7064);
+				expect(Mod661_26).to.be.instanceof(ISO7064);
+				expect(Mod661_26).to.be.instanceof(PureISO7064);
 
 				next();
 			});
 
 			it('Mod1271_36 is a PureISO7064', (next) => {
-				expect(Mod1271_36.prototype).to.be.instanceof(ISO7064);
-				expect(Mod1271_36.prototype).to.be.instanceof(PureISO7064);
+				expect(Mod1271_36).to.be.instanceof(ISO7064);
+				expect(Mod1271_36).to.be.instanceof(PureISO7064);
 
 				next();
 			});
@@ -85,22 +85,22 @@ describe('ISO7064', () => {
 			});
 
 			it('Mod11_10 is a HybridISO7064', (next) => {
-				expect(Mod11_10.prototype).to.be.instanceof(ISO7064);
-				expect(Mod11_10.prototype).to.be.instanceof(HybridISO7064);
+				expect(Mod11_10).to.be.instanceof(ISO7064);
+				expect(Mod11_10).to.be.instanceof(HybridISO7064);
 
 				next();
 			});
 
 			it('Mod27_26 is a HybridISO7064', (next) => {
-				expect(Mod27_26.prototype).to.be.instanceof(ISO7064);
-				expect(Mod27_26.prototype).to.be.instanceof(HybridISO7064);
+				expect(Mod27_26).to.be.instanceof(ISO7064);
+				expect(Mod27_26).to.be.instanceof(HybridISO7064);
 
 				next();
 			});
 
 			it('Mod37_36 is a HybridISO7064', (next) => {
-				expect(Mod37_36.prototype).to.be.instanceof(ISO7064);
-				expect(Mod37_36.prototype).to.be.instanceof(HybridISO7064);
+				expect(Mod37_36).to.be.instanceof(ISO7064);
+				expect(Mod37_36).to.be.instanceof(HybridISO7064);
 
 				next();
 			});

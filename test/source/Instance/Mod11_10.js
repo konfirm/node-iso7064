@@ -1,15 +1,13 @@
 /* global source, describe, it, each, expect */
 
 const Alphabet = require('@konfirm/alphabet');
-const ModSubject = source('Entity/Mod11_10');
-const ISO7064 = source('Abstract/ISO7064');
-const HybridISO7064 = source('Abstract/HybridISO7064');
+const { ISO7064, HybridISO7064, Mod11_10 } = require('../../../main.js');
 
 describe('ISO7064', () => {
 	describe('Mod11_10', () => {
 		it('is an instance of (Hybrid)ISO7064', (next) => {
-			expect(ModSubject.prototype).to.be.instanceof(ISO7064);
-			expect(ModSubject.prototype).to.be.instanceof(HybridISO7064);
+			expect(Mod11_10).to.be.instanceof(ISO7064);
+			expect(Mod11_10).to.be.instanceof(HybridISO7064);
 
 			next();
 		});
@@ -26,7 +24,7 @@ describe('ISO7064', () => {
 			alphabet      | ${Alphabet.from('0123456789')}
 			double        | ${false}
 		`('has $property with value $value', ({ property, value }, next) => {
-			expect(ModSubject[property]).to.equal(value);
+			expect(Mod11_10[property]).to.equal(value);
 
 			next();
 		});
@@ -47,7 +45,7 @@ describe('ISO7064', () => {
 				82-00-10-7028943   | 8200107028943
 				98-25-46           | 982546
 			`('input $input is normalized into $normal', ({ input, normal }, next) => {
-				expect(ModSubject.normalize(input)).to.equal(normal);
+				expect(Mod11_10.normalize(input)).to.equal(normal);
 
 				next();
 			});
@@ -82,7 +80,7 @@ describe('ISO7064', () => {
 				3676012560274058125725682603573122447174631135   | 4	
 				853                                              | 7
 			`('input $input has checksum $checksum', ({ input, checksum }, next) => {
-				expect(ModSubject.checksum(input)).to.equal(checksum);
+				expect(Mod11_10.checksum(input)).to.equal(checksum);
 
 				next();
 			});
@@ -116,7 +114,7 @@ describe('ISO7064', () => {
 				3676012560274058125725682603573122447174631135   | 36760125602740581257256826035731224471746311354
 				853                                              | 8537
 			`('generates $computed for $input', ({ input, computed }, next) => {
-				expect(ModSubject.generate(input)).to.equal(computed);
+				expect(Mod11_10.generate(input)).to.equal(computed);
 
 				next();
 			});
@@ -153,7 +151,7 @@ describe('ISO7064', () => {
 				8537                                              | yes
 				
 			`('validates $input is valid: $valid', ({ input, valid }, next) => {
-				expect(ModSubject.validate(input)).to.equal(valid === 'yes');
+				expect(Mod11_10.validate(input)).to.equal(valid === 'yes');
 
 				next();
 			});

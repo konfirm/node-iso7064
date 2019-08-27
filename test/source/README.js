@@ -5,11 +5,9 @@ const { HybridISO7064 } = require('../../main.js');
 
 describe('README.md', () => {
 	describe('Mod17_16 example', () => {
-		class Mod17_16 extends HybridISO7064 {
-			static get alphabet() {
-				return Alphabet.from('0123456789ABCDEF');
-			}
-		}
+		const Mod17_16 = new HybridISO7064({
+			alphabet: Alphabet.from('0123456789ABCDEF')
+		});
 
 		it('Mod17_16.checksum', (next) => {
 			expect(Mod17_16.checksum('D98989898909898')).to.equal('B');

@@ -1,15 +1,13 @@
 /* global source, describe, it, each, expect */
 
 const Alphabet = require('@konfirm/alphabet');
-const ModSubject = source('Entity/Mod11_2');
-const ISO7064 = source('Abstract/ISO7064');
-const PureISO7064 = source('Abstract/PureISO7064');
+const { ISO7064, PureISO7064, Mod11_2 } = require('../../../main.js');
 
 describe('ISO7064', () => {
 	describe('Mod11_2', () => {
 		it('is an instance of (Pure)ISO7064', (next) => {
-			expect(ModSubject.prototype).to.be.instanceof(ISO7064);
-			expect(ModSubject.prototype).to.be.instanceof(PureISO7064);
+			expect(Mod11_2).to.be.instanceof(ISO7064);
+			expect(Mod11_2).to.be.instanceof(PureISO7064);
 
 			next();
 		});
@@ -26,7 +24,7 @@ describe('ISO7064', () => {
 			alphabet      | ${Alphabet.from('0123456789X')}
 			double        | ${false}
 		`('has $property with value $value', ({ property, value }, next) => {
-			expect(ModSubject[property]).to.equal(value);
+			expect(Mod11_2[property]).to.equal(value);
 
 			next();
 		});
@@ -48,7 +46,7 @@ describe('ISO7064', () => {
 				82-00-10-7028943   | 8200107028943
 				98-25-46           | 982546
 			`('input $input is normalized into $normal', ({ input, normal }, next) => {
-				expect(ModSubject.normalize(input)).to.equal(normal);
+				expect(Mod11_2.normalize(input)).to.equal(normal);
 
 				next();
 			});
@@ -81,7 +79,7 @@ describe('ISO7064', () => {
 				4731722270      | 0
 				000088486619034 | 0
 			`('input $input has checksum $checksum', ({ input, checksum }, next) => {
-				expect(ModSubject.checksum(input)).to.equal(checksum);
+				expect(Mod11_2.checksum(input)).to.equal(checksum);
 
 				next();
 			});
@@ -114,7 +112,7 @@ describe('ISO7064', () => {
 				4731722270      | 47317222700     
 				000088486619034 | 0000884866190340
 			`('generates $computed for $input', ({ input, computed }, next) => {
-				expect(ModSubject.generate(input)).to.equal(computed);
+				expect(Mod11_2.generate(input)).to.equal(computed);
 
 				next();
 			});
@@ -151,7 +149,7 @@ describe('ISO7064', () => {
 				08940            | no
 				089X             | no
 			`('validates $input is valid: $valid', ({ input, valid }, next) => {
-				expect(ModSubject.validate(input)).to.equal(valid === 'yes');
+				expect(Mod11_2.validate(input)).to.equal(valid === 'yes');
 
 				next();
 			});

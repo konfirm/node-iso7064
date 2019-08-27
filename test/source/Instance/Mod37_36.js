@@ -1,15 +1,13 @@
 /* global source, describe, it, each, expect */
 
 const Alphabet = require('@konfirm/alphabet');
-const ModSubject = source('Entity/Mod37_36');
-const ISO7064 = source('Abstract/ISO7064');
-const HybridISO7064 = source('Abstract/HybridISO7064');
+const { ISO7064, HybridISO7064, Mod37_36 } = require('../../../main.js');
 
 describe('ISO7064', () => {
 	describe('Mod37_36', () => {
 		it('is an instance of (Hybrid)ISO7064', (next) => {
-			expect(ModSubject.prototype).to.be.instanceof(ISO7064);
-			expect(ModSubject.prototype).to.be.instanceof(HybridISO7064);
+			expect(Mod37_36).to.be.instanceof(ISO7064);
+			expect(Mod37_36).to.be.instanceof(HybridISO7064);
 
 			next();
 		});
@@ -26,7 +24,7 @@ describe('ISO7064', () => {
 			alphabet      | ${Alphabet.from('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ')}
 			double        | ${false}
 		`('has $property with value $value', ({ property, value }, next) => {
-			expect(ModSubject[property]).to.equal(value);
+			expect(Mod37_36[property]).to.equal(value);
 
 			next();
 		});
@@ -46,7 +44,7 @@ describe('ISO7064', () => {
 				T/BR                            | TBR
 				EF.WW03 2G2+TI                  | EFWW032G2TI
 			`('input $input is normalized into $normal', ({ input, normal }, next) => {
-				expect(ModSubject.normalize(input)).to.equal(normal);
+				expect(Mod37_36.normalize(input)).to.equal(normal);
 
 				next();
 			});
@@ -78,7 +76,7 @@ describe('ISO7064', () => {
 				MM61BF7H6C2O86NNMW8ZY8V                         | 8
 				WP8Z0                                           | 9
 			`('input $input has checksum $checksum', ({ input, checksum }, next) => {
-				expect(ModSubject.checksum(input)).to.equal(checksum);
+				expect(Mod37_36.checksum(input)).to.equal(checksum);
 
 				next();
 			});
@@ -109,7 +107,7 @@ describe('ISO7064', () => {
 				MM61BF7H6C2O86NNMW8ZY8V                         | MM61BF7H6C2O86NNMW8ZY8V8
 				WP8Z0                                           | WP8Z09
 			`('generates $computed for $input', ({ input, computed }, next) => {
-				expect(ModSubject.generate(input)).to.equal(computed);
+				expect(Mod37_36.generate(input)).to.equal(computed);
 
 				next();
 			});
@@ -143,7 +141,7 @@ describe('ISO7064', () => {
 				MM61BF7H6C2O86NNMW8ZY8V8                         | yes
 				WP8Z09                                           | yes
 			`('validates $input is valid: $valid', ({ input, valid }, next) => {
-				expect(ModSubject.validate(input)).to.equal(valid === 'yes');
+				expect(Mod37_36.validate(input)).to.equal(valid === 'yes');
 
 				next();
 			});

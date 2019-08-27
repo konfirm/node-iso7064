@@ -1,4 +1,4 @@
-const ISO7064 = require('./ISO7064.js');
+const ISO7064 = require('../Abstract/ISO7064.js');
 
 /**
  * Pure checksum calculation implementation
@@ -8,23 +8,28 @@ const ISO7064 = require('./ISO7064.js');
  */
 class PureISO7064 extends ISO7064 {
 	/**
-	 * The radix
+	 * Creates an instance of PureISO7064
 	 *
-	 * @readonly
-	 * @static
+	 * @param {*} options
 	 * @memberof PureISO7064
 	 */
-	static get radix() {}
+	constructor({ indices, alphabet, radix = 2, ...rest } = {}) {
+		super({
+			...rest,
+			alphabet,
+			indices: indices || (alphabet ? alphabet.slice(0, -1) : alphabet),
+			radix
+		});
+	}
 
 	/**
 	 * Calculate the checksum for input
 	 *
-	 * @static
 	 * @param {string} input
 	 * @returns {string} checksum
 	 * @memberof PureISO7064
 	 */
-	static checksum(input) {
+	checksum(input) {
 		const { modulus, radix, double, indices, alphabet } = this;
 		const initial = alphabet.charAt(0).repeat(Number(double) + 1);
 		const normal = this.normalize(input) + initial;

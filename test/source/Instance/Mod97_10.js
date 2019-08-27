@@ -1,15 +1,13 @@
 /* global source, describe, it, each, expect */
 
 const Alphabet = require('@konfirm/alphabet');
-const ModSubject = source('Entity/Mod97_10');
-const ISO7064 = source('Abstract/ISO7064');
-const PureISO7064 = source('Abstract/PureISO7064');
+const { ISO7064, PureISO7064, Mod97_10 } = require('../../../main.js');
 
 describe('ISO7064', () => {
 	describe('Mod97_10', () => {
 		it('is an instance of (Pure)ISO7064', (next) => {
-			expect(ModSubject.prototype).to.be.instanceof(ISO7064);
-			expect(ModSubject.prototype).to.be.instanceof(PureISO7064);
+			expect(Mod97_10).to.be.instanceof(ISO7064);
+			expect(Mod97_10).to.be.instanceof(PureISO7064);
 
 			next();
 		});
@@ -26,7 +24,7 @@ describe('ISO7064', () => {
 			alphabet      | ${Alphabet.from('0123456789')}
 			double        | ${true}
 		`('has $property with value $value', ({ property, value }, next) => {
-			expect(ModSubject[property]).to.equal(value);
+			expect(Mod97_10[property]).to.equal(value);
 
 			next();
 		});
@@ -39,7 +37,7 @@ describe('ISO7064', () => {
 				ZXY.123.57 | 12357
 				ABCDEF1733 | 1733
 			`('input $input is normalized into $normal', ({ input, normal }, next) => {
-				expect(ModSubject.normalize(input)).to.equal(normal);
+				expect(Mod97_10.normalize(input)).to.equal(normal);
 
 				next();
 			});
@@ -56,7 +54,7 @@ describe('ISO7064', () => {
 				001937967935               | 37
 				352415823471               | 14
 			`('input $input has checksum $checksum', ({ input, checksum }, next) => {
-				expect(ModSubject.checksum(input)).to.equal(checksum);
+				expect(Mod97_10.checksum(input)).to.equal(checksum);
 
 				next();
 			});
@@ -73,7 +71,7 @@ describe('ISO7064', () => {
 				001937967935 | 00193796793537
 				352415823471 | 35241582347114
 			`('generates $computed for $input', ({ input, computed }, next) => {
-				expect(ModSubject.generate(input)).to.equal(computed);
+				expect(Mod97_10.generate(input)).to.equal(computed);
 
 				next();
 			});
@@ -95,7 +93,7 @@ describe('ISO7064', () => {
 				00193796793538 | no     
 				35241582347115 | no     
 			`('validates $input is valid: $valid', ({ input, valid }, next) => {
-				expect(ModSubject.validate(input)).to.equal(valid === 'yes');
+				expect(Mod97_10.validate(input)).to.equal(valid === 'yes');
 
 				next();
 			});

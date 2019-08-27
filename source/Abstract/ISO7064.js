@@ -1,91 +1,119 @@
+const storage = new WeakMap();
+
 /**
  * Implement the common ISO 7064 implementation mechanics
  *
  * @class ISO7064
  */
 class ISO7064 {
+	constructor(options = {}) {
+		storage.set(this, options);
+	}
+
 	/**
 	 * The algorithm name
 	 *
 	 * @readonly
-	 * @static
 	 * @memberof ISO7064
 	 */
-	static get algorithm() {}
+	get algorithm() {
+		const { algorithm } = storage.get(this);
+
+		return algorithm || 'Custom';
+	}
 
 	/**
 	 * The specification name
 	 *
 	 * @readonly
-	 * @static
 	 * @memberof ISO7064
 	 */
-	static get specification() {
+	get specification() {
 		const { algorithm } = this;
 
-		return algorithm ? `ISO 7064, ${algorithm}` : algorithm;
+		return `ISO 7064, ${algorithm}`;
 	}
 
 	/**
 	 * The designation (always 0, except for the Modulus implementations)
 	 *
 	 * @readonly
-	 * @static
 	 * @memberof ISO7064
 	 */
-	static get designation() {
-		return 0;
+	get designation() {
+		const { designation } = storage.get(this);
+
+		return designation || 0;
 	}
 
 	/**
 	 * The alphabet of allowed characters and from which to obtain the indices
 	 *
 	 * @readonly
-	 * @static
 	 * @memberof ISO7064
 	 */
-	static get indices() {
-		return this.alphabet;
+	get indices() {
+		const { indices, alphabet } = storage.get(this);
+
+		return indices || alphabet;
 	}
 
 	/**
 	 * The checksum alphabet
 	 *
 	 * @readonly
-	 * @static
 	 * @memberof ISO7064
 	 */
-	static get alphabet() {}
+	get alphabet() {
+		const { alphabet } = storage.get(this);
+
+		return alphabet;
+	}
 
 	/**
 	 * The modulus
 	 *
 	 * @readonly
-	 * @static
 	 * @memberof ISO7064
 	 */
-	static get modulus() {}
+	get modulus() {
+		const { modulus, alphabet } = storage.get(this);
+
+		return modulus || (alphabet ? alphabet.length : undefined);
+	}
+
+	/**
+	 * The radix
+	 *
+	 * @readonly
+	 * @memberof ISO7064
+	 */
+	get radix() {
+		const { radix } = storage.get(this);
+
+		return radix;
+	}
 
 	/**
 	 * Does the checksum consist of double digits
 	 *
 	 * @readonly
-	 * @static
 	 * @memberof ISO7064
 	 */
-	static get double() {
-		return false;
+	get double() {
+		const { double } = storage.get(this);
+
+		return double || false;
 	}
 
 	/**
 	 * Normalize input, removing any character not allowed in the input
 	 *
-	 * @static
 	 * @param {string} input
 	 * @returns {string} normalized
 	 * @memberof ISO7064
 	 */
-	static normalize(input) {
+	normalize(input) {
 		const { indices } = this;
 		const purge = new RegExp(`[^${indices}]+`, 'g');
 
@@ -97,22 +125,22 @@ class ISO7064 {
 	/**
 	 * Calculate the checksum for input
 	 *
-	 * @static
 	 * @param {string} input
 	 * @returns {string} checksum
 	 * @memberof ISO7064
 	 */
-	static checksum(input) {}
+	checksum(input) {
+		throw new Error('Checksum method not implemented');
+	}
 
 	/**
 	 * Validate the input
 	 *
-	 * @static
 	 * @param {string} input
 	 * @returns {boolean} valid
 	 * @memberof ISO7064
 	 */
-	static validate(input) {
+	validate(input) {
 		const { indices, alphabet, double } = this;
 		const pattern = new RegExp(
 			`([${indices}]+)([${alphabet}]{${Number(double) + 1}})`
@@ -131,15 +159,28 @@ class ISO7064 {
 	/**
 	 * Generate the normalized output including the checksum
 	 *
-	 * @static
 	 * @param {string} input
 	 * @returns {string} generated
 	 * @memberof ISO7064
 	 */
-	static generate(input) {
+	generate(input) {
 		const normal = this.normalize(input);
 
 		return `${normal}${this.checksum(input)}`;
+	}
+
+	/**
+	 * Create a new instance based on the current settings with optional overrides
+	 *
+	 * @param {object} options
+	 * @returns
+	 * @memberof ISO7064
+	 */
+	factory(options = {}) {
+		const { constructor } = this;
+		const { defaults } = storage.get(this);
+
+		return new constructor({ ...defaults, designation: 0, ...options });
 	}
 }
 
