@@ -12,6 +12,7 @@ const alphabet = {
 };
 
 module.exports = {
+	Alphabet,
 	ISO7064,
 	PureISO7064,
 	HybridISO7064,
