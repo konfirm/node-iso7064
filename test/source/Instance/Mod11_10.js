@@ -156,5 +156,24 @@ describe('ISO7064', () => {
 				next();
 			});
 		});
+
+		it('factory new instance', (next) => {
+			const indices = Alphabet.from('012345');
+			const custom = Mod11_10.factory({ indices });
+
+			expect(custom.algorithm).to.equal('Custom');
+			expect(custom.specification).to.equal('ISO 7064, Custom');
+			expect(custom.designation).to.equal(0);
+
+			expect(custom.modulus).to.equal(Mod11_10.modulus);
+			expect(custom.radix).to.equal(Mod11_10.radix);
+			expect(custom.double).to.equal(Mod11_10.double);
+
+			expect(custom.indices).to.shallow.equal(indices);
+			expect(custom.alphabet).to.shallow.equal(Mod11_10.alphabet);
+			expect(custom.indices).not.to.shallow.equal(Mod11_10.indices);
+
+			next();
+		});
 	});
 });
