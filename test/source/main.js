@@ -4,6 +4,7 @@ const main = require('../../main.js');
 
 describe('ISO7064', () => {
 	it('exports', (next) => {
+		expect('Alphabet' in main).to.be.true();
 		expect('ISO7064' in main).to.be.true();
 		expect('PureISO7064' in main).to.be.true();
 		expect('HybridISO7064' in main).to.be.true();

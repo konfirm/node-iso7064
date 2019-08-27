@@ -177,10 +177,16 @@ class ISO7064 {
 	 * @memberof ISO7064
 	 */
 	factory(options = {}) {
-		const { constructor } = this;
-		const { defaults } = storage.get(this);
+		const { constructor, indices, alphabet, modulus, radix, double } = this;
 
-		return new constructor({ ...defaults, designation: 0, ...options });
+		return new constructor({
+			indices,
+			alphabet,
+			modulus,
+			radix,
+			double,
+			...options
+		});
 	}
 }
 

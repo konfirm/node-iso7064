@@ -46,12 +46,13 @@ import { Mod97_10 } from '@konfirm/iso7064';
 
 All algorithm implementations have the same methods, please refer to their respective documentation for the details on the exact in- and outputs.
 
-| method    | input            | output    | description                                                 |
-| --------- | ---------------- | --------- | ----------------------------------------------------------- |
-| normalize | `string\|number` | `string`  | the normalized value used for checksum calculations         |
-| checksum  | `string\|number` | `string`  | the single or double digit/character checksum               |
-| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)           |
-| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized value used for checksum calculations                |
+| checksum  | `string\|number` | `string`  | the single or double digit/character checksum                      |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ```js
 const { Mod11_2, Mod11_10 } = require('@konfirm/iso7064');
@@ -78,13 +79,11 @@ The ISO 15706-2:2007 specification states it uses the hybrid system, with hexade
 This leads to the following code
 
 ```js
-const { HybridISO7064 } = require('@konfirm/iso7064');
+const { HybridISO7064, Alphabet } = require('@konfirm/iso7064');
 
-class Mod17_16 extends HybridISO7064 {
-	static get indices() {
-		return '01234567890ABCDEF';
-	}
-}
+const Mod17_16 = new HybridISO7064({
+	alphabet: Alphabet.from('0123456789ABCDEF')
+});
 
 console.log(Mod17_17.checksum('D98989898909898')); // 'B'
 console.log(Mod17_17.generate('D98989898909898')); // 'D98989898909899B'
@@ -102,49 +101,66 @@ There is an addendum available for the specification, [ISO 15706-1:2002/Amd 1:20
 
 This is the base class of the package, it contains all properties and methods used by both the Pure- and HybridISO7064 classes and extends (the Mod-algorithm extensions).
 
+### Constructor
+
+New instances (such as the prepared `Mod*` implementations) are configured using an options object, the table below describes the type, defaults, purpose and whether the values are inherited by the `factory` method
+
+| option      | type                                                   | default         | factory inherits | purpose                                |
+| ----------- | ------------------------------------------------------ | --------------- | ---------------- | -------------------------------------- |
+| algorithm   | `string`                                               | `Custom`        | no               | the name of the algorithm              |
+| designation | `number`                                               | `0`             | no               | the designation number                 |
+| modulus     | `number`                                               | alphabet.length | yes              | the modules to use                     |
+| indices     | [`Alphabet`](https://github.com/konfirm/node-alphabet) | alphanet        | yes              | the indices (allowed characters)       |
+| alphabet    | [`Alphabet`](https://github.com/konfirm/node-alphabet) | `undefined`     | yes              | The characters to use for the checksum |
+| radix       | `number`                                               | `undefined`     | yes              | the radix to use                       |
+| double      | `boolean`                                              | `false`         | yes              | use a double digit checksum            |
+
 ### Properties
 
-| property      | value                                                                                                                                                                                     | description                                                       |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| algorithm     | `undefined`                                                                                                                                                                               | the name of the algprithm                                         |
-| specification | `undefined`                                                                                                                                                                               | the full specification and algorithm name                         |
-| designation   | `0`                                                                                                                                                                                       | the designated number in the ISO 7064 standard                    |
-| modulus       | `undefined`                                                                                                                                                                               | the modulus of the algorithm                                      |
-| indices       | [Alphabet](https://github.com/konfirm/node-alphabet)`| the [Alphabet instance](https://github.com/konfirm/node-alphabet) with allowed input digits/characters (uses`alphabet` if ommited) |
-| alphabet      | [Alphabet](https://github.com/konfirm/node-alphabet)undefined` | the [Alphabet instance](https://github.com/konfirm/node-alphabet) allowed checksum digits/characters                     |
-| double        | `false`                                                                                                                                                                                   | does the checksum consist of two digits/characters instead of one |
+| property      | value                                                  | description                                                                                                                        |
+| ------------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| algorithm     | `Custom`                                               | the name of the algorithm                                                                                                          |
+| specification | `ISO 7064, Custom`                                     | the full specification and algorithm name                                                                                          |
+| designation   | `0`                                                    | the designated number in the ISO 7064 standard (0 is the described value for non-designations)                                     |
+| modulus       | `undefined`                                            | the modulus of the algorithm                                                                                                       |
+| indices       | [`Alphabet`](https://github.com/konfirm/node-alphabet) | the [Alphabet instance](https://github.com/konfirm/node-alphabet) with allowed input digits/characters (uses`alphabet` if ommited) |
+| alphabet      | [`Alphabet`](https://github.com/konfirm/node-alphabet) | the [Alphabet instance](https://github.com/konfirm/node-alphabet) allowed checksum digits/characters                               |
+| radix         | `undefined`                                            | The radix used by the algorithm (used by `PureISO7064` implementations)                                                            |
+| double        | `false`                                                | does the checksum consist of two digits/characters instead of one                                                                  |
 
 ### Methods
 
-| method    | input           | output    | description                                                 |
-| --------- | --------------- | --------- | ----------------------------------------------------------- |
-| normalize | `string|number` | `string`  | The `ISO7064` class does not have an `indices` prope        |
-| checksum  | `string|number` | `string`  | the single or double digit/character checksum               |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)           |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input |
+| method    | input            | output         | description                                                        |
+| --------- | ---------------- | -------------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`       | The `ISO7064` class does not have an `indices` prope               |
+| checksum  | `string\|number` | `throws Error` | will throw an Error, implementation in an extend is required       |
+| validate  | `string\|number` | `boolean`      | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`       | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064`      | Create a new instance, override provided options, inherit the rest |
 
 ## PureISO7064
 
 This is the base class for all pure systems. A pure system uses a single modulus for every stage of the checksum calculation.
 
-As only the pure systems require the `radix` property, this class implements it.
+As only the pure systems require the `radix` property, this class implements its default value.
 
 ### Properties
 
 The PureISO7064 class inherits all properties from ISO7064 and adds `radix`.
 
-| property | value       | description                     |
-| -------- | ----------- | ------------------------------- |
-| radix    | `undefined` | The radix used by the algorithm |
+| property | value | description                     |
+| -------- | ----- | ------------------------------- |
+| radix    | `2`   | The radix used by the algorithm |
 
 ### Methods
 
-| method    | input           | output    | description                                                 |
-| --------- | --------------- | --------- | ----------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized value used for checksum calculations         |
-| checksum  | `string|number` | `string`  | the single or double digit/character checksum               |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)           |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized value used for checksum calculations                |
+| checksum  | `string\|number` | `string`  | the single or double digit/character checksum                      |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ## HybridISO7064
 
@@ -156,12 +172,13 @@ The Hybrid7064 class inherits all properties from ISO7064.
 
 ### Methods
 
-| method    | input           | output    | description                                                 |
-| --------- | --------------- | --------- | ----------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized value used for checksum calculations         |
-| checksum  | `string|number` | `string`  | the single or double digit/character checksum               |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)           |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized value used for checksum calculations                |
+| checksum  | `string\|number` | `string`  | the single or double digit/character checksum                      |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ## MOD 11-2
 
@@ -186,12 +203,13 @@ The ISO 7064, MOD 11-2 algorithm is used by several standards, including
 
 ### Methods
 
-| method    | input           | output    | description                                                 |
-| --------- | --------------- | --------- | ----------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized numeric value used for checksum calculations |
-| checksum  | `string|number` | `string`  | the single digit or `X` character checksum                  |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)           |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized numeric value used for checksum calculations        |
+| checksum  | `string\|number` | `string`  | the single digit or `X` character checksum                         |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ## MOD 11,10
 
@@ -213,12 +231,13 @@ The ISO 7064, MOD 11,10 algorithm is used by several standards, including
 
 ### Methods
 
-| method    | input           | output    | description                                                 |
-| --------- | --------------- | --------- | ----------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized numeric value used for checksum calculations |
-| checksum  | `string|number` | `string`  | the single digit checksum                                   |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)           |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized numeric value used for checksum calculations        |
+| checksum  | `string\|number` | `string`  | the single digit checksum                                          |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ## MOD 27,26
 
@@ -236,12 +255,13 @@ The ISO 7064, MOD 11,10 algorithm is used by several standards, including
 
 ### Methods
 
-| method    | input           | output    | description                                                    |
-| --------- | --------------- | --------- | -------------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized alphabetic value used for checksum calculations |
-| checksum  | `string|number` | `string`  | the single character alphabetic checksum                       |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)              |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input    |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized alphabetic value used for checksum calculations     |
+| checksum  | `string\|number` | `string`  | the single character alphabetic checksum                           |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ## MOD 37-2
 
@@ -264,12 +284,13 @@ The ISO 7064, MOD 37-2 algorithm is used by several standards, including
 
 ### Methods
 
-| method    | input           | output    | description                                                      |
-| --------- | --------------- | --------- | ---------------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized alphanumeric value used for checksum calculations |
-| checksum  | `string|number` | `string`  | the single character alphanumeric or `*` checksum                |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)                |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input      |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized alphanumeric value used for checksum calculations   |
+| checksum  | `string\|number` | `string`  | the single character alphanumeric or `*` checksum                  |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ## MOD 37,36
 
@@ -291,12 +312,13 @@ The ISO 7064, MOD 37,36 algorithm is used by several standards, including
 
 ### Methods
 
-| method    | input           | output    | description                                                      |
-| --------- | --------------- | --------- | ---------------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized alphanumeric value used for checksum calculations |
-| checksum  | `string|number` | `string`  | the single character alphanumeric checksum                       |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)                |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input      |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized alphanumeric value used for checksum calculations   |
+| checksum  | `string\|number` | `string`  | the single character alphanumeric checksum                         |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ## MOD 97-10
 
@@ -315,12 +337,13 @@ The ISO 7064, MOD 37,36 algorithm is used by several standards, including
 
 ### Methods
 
-| method    | input           | output    | description                                                 |
-| --------- | --------------- | --------- | ----------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized numeric value used for checksum calculations |
-| checksum  | `string|number` | `string`  | the double digit checksum                                   |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)           |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized numeric value used for checksum calculations        |
+| checksum  | `string\|number` | `string`  | the double digit checksum                                          |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ## MOD 661-26
 
@@ -339,12 +362,13 @@ The ISO 7064, MOD 37,36 algorithm is used by several standards, including
 
 ### Methods
 
-| method    | input           | output    | description                                                    |
-| --------- | --------------- | --------- | -------------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized alphabetic value used for checksum calculations |
-| checksum  | `string|number` | `string`  | the double character alphabetic checksum                       |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)              |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input    |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized alphabetic value used for checksum calculations     |
+| checksum  | `string\|number` | `string`  | the double character alphabetic checksum                           |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 ## MOD 1271-36
 
@@ -363,12 +387,13 @@ The ISO 7064, MOD 37,36 algorithm is used by several standards, including
 
 ### Methods
 
-| method    | input           | output    | description                                                      |
-| --------- | --------------- | --------- | ---------------------------------------------------------------- |
-| normalize | `string|number` | `string`  | the normalized alphanumeric value used for checksum calculations |
-| checksum  | `string|number` | `string`  | the double character alphanumeric checksum                       |
-| validate  | `string|number` | `boolean` | validate the provided string (including checksum)                |
-| generate  | `string|number` | `string`  | calculate and append the checksum to the (normalized) input      |
+| method    | input            | output    | description                                                        |
+| --------- | ---------------- | --------- | ------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`  | the normalized alphanumeric value used for checksum calculations   |
+| checksum  | `string\|number` | `string`  | the double character alphanumeric checksum                         |
+| validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
+| generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
+| factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
 
 # Credits
 
