@@ -39,6 +39,9 @@
 	],
 	"author": "Rogier Spieker <rogier+iso@konfirm.eu>",
 	"license": "MIT",
+	"engines": {
+		"node": ">=8"
+	},
 	"devDependencies": {
 		"@konfirm/labrat": "^2.0.2",
 		"eslint": "^6.2.2",
