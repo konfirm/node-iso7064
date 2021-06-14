@@ -1,46 +1,39 @@
-/* global source, describe, it, expect */
+import * as test from 'tape';
+import { Alphabet } from '@konfirm/alphabet';
+import { HybridISO7064 } from '../../main';
 
-const Alphabet = require('@konfirm/alphabet');
-const { HybridISO7064 } = require('../../main.js');
+const Mod17_16 = new HybridISO7064({
+	alphabet: Alphabet.from('0123456789ABCDEF')
+});
 
-describe('README.md', () => {
-	describe('Mod17_16 example', () => {
-		const Mod17_16 = new HybridISO7064({
-			alphabet: Alphabet.from('0123456789ABCDEF')
-		});
+test('README/Examples - Mod17_16.checksum', (t) => {
+	t.equal(Mod17_16.checksum('D98989898909898'), 'B');
+	t.equal(Mod17_16.checksum('D98989898909899'), '9');
 
-		it('Mod17_16.checksum', (next) => {
-			expect(Mod17_16.checksum('D98989898909898')).to.equal('B');
-			expect(Mod17_16.checksum('D98989898909899')).to.equal('9');
+	t.end();
+});
 
-			next();
-		});
+test('README/Examples - Mod17_16.generate', (t) => {
+	t.equal(Mod17_16.generate('D98989898909898'),
+		'D98989898909898B'
+	);
+	t.equal(Mod17_16.generate('D98989898909899'),
+		'D989898989098999'
+	);
 
-		it('Mod17_16.generate', (next) => {
-			expect(Mod17_16.generate('D98989898909898')).to.equal(
-				'D98989898909898B'
-			);
-			expect(Mod17_16.generate('D98989898909899')).to.equal(
-				'D989898989098999'
-			);
+	t.end();
+});
 
-			next();
-		});
+test('README/Examples - Mod17_16.validate', (t) => {
+	t.equal(Mod17_16.validate('D98989898909898B'), true);
+	t.equal(Mod17_16.validate('D98989898909899B'), false);
+	t.equal(Mod17_16.validate('D989898989098999'), true);
 
-		it('Mod17_16.validate', (next) => {
-			expect(Mod17_16.validate('D98989898909898B')).to.equal(true);
-			expect(Mod17_16.validate('D98989898909899B')).to.equal(false);
-			expect(Mod17_16.validate('D989898989098999')).to.equal(true);
+	t.end();
+});
 
-			next();
-		});
+test('README/Examples - Mod17_16.validate', (t) => {
+	t.equal(Mod17_16.validate('D98-989-898-909-898-B'), true);
 
-		it('Mod17_16.validate', (next) => {
-			expect(Mod17_16.validate('D98-989-898-909-898-B')).to.equal(true);
-
-			next();
-		});
-
-		expect();
-	});
+	t.end();
 });
