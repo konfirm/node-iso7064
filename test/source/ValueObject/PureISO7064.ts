@@ -24,7 +24,7 @@ each`
 	double        | ${false}
 `((record) => {
 	const { property, value } = record as any;
-	test(`has property ${property} with value ${value}`, (t) => {
+	test(`ISO7064/Pure - has property ${property} with value ${value}`, (t) => {
 		t.true(property in instance);
 		t.equal(instance[property as keyof PureISO7064], value);
 
@@ -41,7 +41,7 @@ each`
 	generate
 `((record) => {
 	const { method } = record as any;
-	test(`has method ${method}`, (t) => {
+	test(`ISO7064/Pure - has method ${method}`, (t) => {
 		t.equal(typeof instance[method as keyof PureISO7064], 'function');
 
 		t.end();
