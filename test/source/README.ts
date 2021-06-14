@@ -1,6 +1,6 @@
 import * as test from 'tape';
 import { Alphabet } from '@konfirm/alphabet';
-import { HybridISO7064 } from '../../main';
+import { HybridISO7064 } from '../../source/main';
 
 const Mod17_16 = new HybridISO7064({
 	alphabet: Alphabet.from('0123456789ABCDEF')

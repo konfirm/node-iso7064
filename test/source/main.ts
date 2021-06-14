@@ -1,5 +1,5 @@
 import * as test from 'tape';
-import * as main from '../../main';
+import * as main from '../../source/main';
 
 test('ISO7064 - exports', (t) => {
 	t.true('Alphabet' in main, 'Alphabet is exported');

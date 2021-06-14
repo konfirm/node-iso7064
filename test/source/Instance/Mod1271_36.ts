@@ -1,7 +1,7 @@
 import * as test from 'tape';
 import each from 'template-literal-each';
 import { Alphabet } from '@konfirm/alphabet';
-import { ISO7064, PureISO7064, Mod1271_36 } from '../../../main';
+import { ISO7064, PureISO7064, Mod1271_36 } from '../../../source/main';
 
 test('ISO7064/Mod1271_36 - is an instance of (Pure)ISO7064', (t) => {
 	t.true(Mod1271_36 instanceof ISO7064, 'Mod1271_36 extends ISO7064');

@@ -1,7 +1,7 @@
 import { Alphabet } from '@konfirm/alphabet';
-import { ISO7064 } from './source/Abstract/ISO7064';
-import { PureISO7064 } from './source/ValueObject/PureISO7064';
-import { HybridISO7064 } from './source/ValueObject/HybridISO7064';
+import { ISO7064 } from './Abstract/ISO7064';
+import { PureISO7064 } from './ValueObject/PureISO7064';
+import { HybridISO7064 } from './ValueObject/HybridISO7064';
 
 const alphabet = {
 	num: Alphabet.from('0123456789'),

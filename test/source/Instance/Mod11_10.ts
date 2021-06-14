@@ -1,7 +1,7 @@
 import * as test from 'tape';
 import each from 'template-literal-each';
 import { Alphabet } from '@konfirm/alphabet';
-import { ISO7064, HybridISO7064, Mod11_10 } from '../../../main';
+import { ISO7064, HybridISO7064, Mod11_10 } from '../../../source/main';
 
 test('ISO7064/Mod11_10 - is an instance of (Hybrid)ISO7064', (t) => {
 	t.true(Mod11_10 instanceof ISO7064, 'Mod11_10 extends ISO7064');
@@ -161,7 +161,7 @@ test('ISO7064/Mod11_10 - validate', (t) => {
 	`((record) => {
 		const { input, valid } = record as any;
 
-		t.equal(Mod11_10.validate(input), valid === 'yes', `validates ${input} is valid: ${valid}`);
+		t.equal(Mod11_10.validate(input), valid === 'yes', `${input} is valid: ${valid}`);
 	});
 
 	t.end();
