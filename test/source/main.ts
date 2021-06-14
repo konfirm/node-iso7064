@@ -1,110 +1,101 @@
-/* global source, describe, it, each, expect */
+import * as test from 'tape';
+import * as main from '../../main';
 
-const main = require('../../main.js');
+test('ISO7064 - exports', (t) => {
+	t.true('Alphabet' in main);
+	t.true('ISO7064' in main);
+	t.true('PureISO7064' in main);
+	t.true('HybridISO7064' in main);
+	t.true('Mod11_2' in main);
+	t.true('Mod11_10' in main);
+	t.true('Mod27_26' in main);
+	t.true('Mod37_2' in main);
+	t.true('Mod37_36' in main);
+	t.true('Mod97_10' in main);
+	t.true('Mod661_26' in main);
+	t.true('Mod1271_36' in main);
 
-describe('ISO7064', () => {
-	it('exports', (next) => {
-		expect('Alphabet' in main).to.be.true();
-		expect('ISO7064' in main).to.be.true();
-		expect('PureISO7064' in main).to.be.true();
-		expect('HybridISO7064' in main).to.be.true();
-		expect('Mod11_2' in main).to.be.true();
-		expect('Mod11_10' in main).to.be.true();
-		expect('Mod27_26' in main).to.be.true();
-		expect('Mod37_2' in main).to.be.true();
-		expect('Mod37_36' in main).to.be.true();
-		expect('Mod97_10' in main).to.be.true();
-		expect('Mod661_26' in main).to.be.true();
-		expect('Mod1271_36' in main).to.be.true();
+	t.end();
+});
 
-		next();
-	});
+const {
+	ISO7064,
+	PureISO7064,
+	HybridISO7064,
+	Mod11_2,
+	Mod11_10,
+	Mod27_26,
+	Mod37_2,
+	Mod37_36,
+	Mod97_10,
+	Mod661_26,
+	Mod1271_36
+} = main;
 
-	describe('inheritance', () => {
-		const {
-			ISO7064,
-			PureISO7064,
-			HybridISO7064,
-			Mod11_2,
-			Mod11_10,
-			Mod27_26,
-			Mod37_2,
-			Mod37_36,
-			Mod97_10,
-			Mod661_26,
-			Mod1271_36
-		} = main;
+test('ISO7064/inheritance - PureISO7064 is a ISO7064', (t) => {
+	t.true(PureISO7064.prototype instanceof ISO7064);
 
-		describe('PureISO7064', () => {
-			it('PureISO7064 is a ISO7064', (next) => {
-				expect(PureISO7064.prototype).to.be.instanceof(ISO7064);
+	t.end();
+});
 
-				next();
-			});
+test('ISO7064/inheritance - Mod11_2 is a PureISO7064', (t) => {
+	t.true(Mod11_2 instanceof ISO7064);
+	t.true(Mod11_2 instanceof PureISO7064);
 
-			it('Mod11_2 is a PureISO7064', (next) => {
-				expect(Mod11_2).to.be.instanceof(ISO7064);
-				expect(Mod11_2).to.be.instanceof(PureISO7064);
+	t.end();
+});
 
-				next();
-			});
+test('ISO7064/inheritance - Mod37_2 is a PureISO7064', (t) => {
+	t.true(Mod37_2 instanceof ISO7064);
+	t.true(Mod37_2 instanceof PureISO7064);
 
-			it('Mod37_2 is a PureISO7064', (next) => {
-				expect(Mod37_2).to.be.instanceof(ISO7064);
-				expect(Mod37_2).to.be.instanceof(PureISO7064);
+	t.end();
+});
 
-				next();
-			});
+test('ISO7064/inheritance - Mod97_10 is a PureISO7064', (t) => {
+	t.true(Mod97_10 instanceof ISO7064);
+	t.true(Mod97_10 instanceof PureISO7064);
 
-			it('Mod97_10 is a PureISO7064', (next) => {
-				expect(Mod97_10).to.be.instanceof(ISO7064);
-				expect(Mod97_10).to.be.instanceof(PureISO7064);
+	t.end();
+});
 
-				next();
-			});
+test('ISO7064/inheritance - Mod661_26 is a PureISO7064', (t) => {
+	t.true(Mod661_26 instanceof ISO7064);
+	t.true(Mod661_26 instanceof PureISO7064);
 
-			it('Mod661_26 is a PureISO7064', (next) => {
-				expect(Mod661_26).to.be.instanceof(ISO7064);
-				expect(Mod661_26).to.be.instanceof(PureISO7064);
+	t.end();
+});
 
-				next();
-			});
+test('ISO7064/inheritance - Mod1271_36 is a PureISO7064', (t) => {
+	t.true(Mod1271_36 instanceof ISO7064);
+	t.true(Mod1271_36 instanceof PureISO7064);
 
-			it('Mod1271_36 is a PureISO7064', (next) => {
-				expect(Mod1271_36).to.be.instanceof(ISO7064);
-				expect(Mod1271_36).to.be.instanceof(PureISO7064);
+	t.end();
+});
 
-				next();
-			});
-		});
+test('ISO7064/inheritance - HybridISO7064 is a ISO7064', (t) => {
+	t.true(HybridISO7064.prototype instanceof ISO7064);
 
-		describe('HybridISO7064', () => {
-			it('HybridISO7064 is a ISO7064', (next) => {
-				expect(HybridISO7064.prototype).to.be.instanceof(ISO7064);
+	t.end();
+});
 
-				next();
-			});
+test('ISO7064/inheritance - Mod11_10 is a HybridISO7064', (t) => {
+	t.true(Mod11_10 instanceof ISO7064);
+	t.true(Mod11_10 instanceof HybridISO7064);
 
-			it('Mod11_10 is a HybridISO7064', (next) => {
-				expect(Mod11_10).to.be.instanceof(ISO7064);
-				expect(Mod11_10).to.be.instanceof(HybridISO7064);
+	t.end();
+});
 
-				next();
-			});
+test('ISO7064/inheritance - Mod27_26 is a HybridISO7064', (t) => {
+	t.true(Mod27_26 instanceof ISO7064);
+	t.true(Mod27_26 instanceof HybridISO7064);
 
-			it('Mod27_26 is a HybridISO7064', (next) => {
-				expect(Mod27_26).to.be.instanceof(ISO7064);
-				expect(Mod27_26).to.be.instanceof(HybridISO7064);
+	t.end();
+});
 
-				next();
-			});
+test('ISO7064/inheritance - Mod37_36 is a HybridISO7064', (t) => {
+	t.true(Mod37_36 instanceof ISO7064);
+	t.true(Mod37_36 instanceof HybridISO7064);
 
-			it('Mod37_36 is a HybridISO7064', (next) => {
-				expect(Mod37_36).to.be.instanceof(ISO7064);
-				expect(Mod37_36).to.be.instanceof(HybridISO7064);
-
-				next();
-			});
-		});
-	});
+	t.end();
 });
