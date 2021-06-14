@@ -12,20 +12,20 @@ test('ISO7064/Pure - is an instance of ISO7064', (t) => {
 });
 
 each`
-	property      | available | value
-	--------------|-----------|-------
-	algorithm     | yes       | Custom
-	specification | yes       | ISO 7064, Custom
-	designation   | yes       | ${0}
-	modulus       | yes       | ${undefined}
-	radix         | yes       | ${2}
-	indices       | yes       | ${undefined}
-	alphabet      | yes       | ${undefined}
-	double        | yes       | ${false}
+	property      | value
+	--------------|-------
+	algorithm     | Custom
+	specification | ISO 7064, Custom
+	designation   | ${0}
+	modulus       | ${undefined}
+	radix         | ${2}
+	indices       | ${undefined}
+	alphabet      | ${undefined}
+	double        | ${false}
 `((record) => {
-	const { property, available, value } = record as any;
-	test(`has ${property} available ${available} with value ${value}`, (t) => {
-		t.equal(property in instance, available === 'yes');
+	const { property, value } = record as any;
+	test(`has property ${property} with value ${value}`, (t) => {
+		t.true(property in instance);
 		t.equal(instance[property as keyof PureISO7064], value);
 
 		t.end();
