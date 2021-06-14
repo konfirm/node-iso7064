@@ -1,12 +1,24 @@
-const storage = new WeakMap();
+import type { Alphabet } from '@konfirm/alphabet';
+
+export type ISO7064Options = {
+	algorithm: string;
+	designation: number;
+	radix: number;
+	modulus: number;
+	double: boolean;
+	indices: Alphabet;
+	alphabet: Alphabet;
+};
+
+const storage: WeakMap<ISO7064, Partial<ISO7064Options>> = new WeakMap();
 
 /**
  * Implement the common ISO 7064 implementation mechanics
  *
  * @class ISO7064
  */
-class ISO7064 {
-	constructor(options = {}) {
+export class ISO7064 {
+	constructor(options: Partial<ISO7064Options> = {}) {
 		storage.set(this, options);
 	}
 
@@ -16,8 +28,8 @@ class ISO7064 {
 	 * @readonly
 	 * @memberof ISO7064
 	 */
-	get algorithm() {
-		const { algorithm } = storage.get(this);
+	get algorithm(): string {
+		const { algorithm } = storage.get(this) as ISO7064Options;
 
 		return algorithm || 'Custom';
 	}
@@ -28,7 +40,7 @@ class ISO7064 {
 	 * @readonly
 	 * @memberof ISO7064
 	 */
-	get specification() {
+	get specification(): string {
 		const { algorithm } = this;
 
 		return `ISO 7064, ${algorithm}`;
@@ -40,8 +52,8 @@ class ISO7064 {
 	 * @readonly
 	 * @memberof ISO7064
 	 */
-	get designation() {
-		const { designation } = storage.get(this);
+	get designation(): number {
+		const { designation } = storage.get(this) as ISO7064Options;
 
 		return designation || 0;
 	}
@@ -52,8 +64,8 @@ class ISO7064 {
 	 * @readonly
 	 * @memberof ISO7064
 	 */
-	get indices() {
-		const { indices, alphabet } = storage.get(this);
+	get indices(): Alphabet {
+		const { indices, alphabet } = storage.get(this) as ISO7064Options;
 
 		return indices || alphabet;
 	}
@@ -64,8 +76,8 @@ class ISO7064 {
 	 * @readonly
 	 * @memberof ISO7064
 	 */
-	get alphabet() {
-		const { alphabet } = storage.get(this);
+	get alphabet(): Alphabet {
+		const { alphabet } = storage.get(this) as ISO7064Options;
 
 		return alphabet;
 	}
@@ -76,10 +88,10 @@ class ISO7064 {
 	 * @readonly
 	 * @memberof ISO7064
 	 */
-	get modulus() {
-		const { modulus, alphabet } = storage.get(this);
+	get modulus(): number {
+		const { modulus, alphabet } = storage.get(this) as ISO7064Options;
 
-		return modulus || (alphabet ? alphabet.length : undefined);
+		return modulus || (alphabet && alphabet.length);
 	}
 
 	/**
@@ -88,8 +100,8 @@ class ISO7064 {
 	 * @readonly
 	 * @memberof ISO7064
 	 */
-	get radix() {
-		const { radix } = storage.get(this);
+	get radix(): number {
+		const { radix } = storage.get(this) as ISO7064Options;
 
 		return radix;
 	}
@@ -100,8 +112,8 @@ class ISO7064 {
 	 * @readonly
 	 * @memberof ISO7064
 	 */
-	get double() {
-		const { double } = storage.get(this);
+	get double(): boolean {
+		const { double } = storage.get(this) as ISO7064Options;
 
 		return double || false;
 	}
@@ -113,7 +125,7 @@ class ISO7064 {
 	 * @returns {string} normalized
 	 * @memberof ISO7064
 	 */
-	normalize(input) {
+	normalize(input: string): string {
 		const { indices } = this;
 		const purge = new RegExp(`[^${indices}]+`, 'g');
 
@@ -129,7 +141,7 @@ class ISO7064 {
 	 * @returns {string} checksum
 	 * @memberof ISO7064
 	 */
-	checksum(input) {
+	checksum(input: string): string {
 		throw new Error('Checksum method not implemented');
 	}
 
@@ -140,7 +152,7 @@ class ISO7064 {
 	 * @returns {boolean} valid
 	 * @memberof ISO7064
 	 */
-	validate(input) {
+	validate(input: string): boolean {
 		const { indices, alphabet, double } = this;
 		const pattern = new RegExp(
 			`([${indices}]+)([${alphabet}]{${Number(double) + 1}})`
@@ -163,7 +175,7 @@ class ISO7064 {
 	 * @returns {string} generated
 	 * @memberof ISO7064
 	 */
-	generate(input) {
+	generate(input: string) {
 		const normal = this.normalize(input);
 
 		return `${normal}${this.checksum(input)}`;
@@ -177,9 +189,10 @@ class ISO7064 {
 	 * @memberof ISO7064
 	 */
 	factory(options = {}) {
-		const { constructor, indices, alphabet, modulus, radix, double } = this;
+		const { indices, alphabet, modulus, radix, double } = this;
+		const { constructor: Ctor } = Object.getPrototypeOf(this);
 
-		return new constructor({
+		return new Ctor({
 			indices,
 			alphabet,
 			modulus,
@@ -189,5 +202,3 @@ class ISO7064 {
 		});
 	}
 }
-
-module.exports = ISO7064;

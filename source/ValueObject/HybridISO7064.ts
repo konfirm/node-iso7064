@@ -1,4 +1,5 @@
-const ISO7064 = require('../Abstract/ISO7064.js');
+import type { ISO7064Options } from '../Abstract/ISO7064';
+import { ISO7064 } from '../Abstract/ISO7064';
 
 /**
  * Hybrid checksum calculation implementation
@@ -6,7 +7,7 @@ const ISO7064 = require('../Abstract/ISO7064.js');
  * @class HybridISO7064
  * @extends {ISO7064}
  */
-class HybridISO7064 extends ISO7064 {
+export class HybridISO7064 extends ISO7064 {
 	/**
 	 * Calculate the checksum for input
 	 *
@@ -14,7 +15,7 @@ class HybridISO7064 extends ISO7064 {
 	 * @returns {string} checksum
 	 * @memberof HybridISO7064
 	 */
-	checksum(input) {
+	checksum(input: string): string {
 		const { modulus: mod, indices, alphabet } = this;
 		const sum =
 			Array.from(this.normalize(input))
@@ -29,5 +30,3 @@ class HybridISO7064 extends ISO7064 {
 		return alphabet.charAt((mod + 1 - sum) % mod);
 	}
 }
-
-module.exports = HybridISO7064;

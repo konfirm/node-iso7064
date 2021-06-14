@@ -69,6 +69,6 @@
 		"typescript": "^4.2.4"
 	},
 	"dependencies": {
-		"@konfirm/alphabet": "^2.0.1"
+		"@konfirm/alphabet": "^3.0.1"
 	}
 }
