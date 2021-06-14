@@ -17,7 +17,7 @@ const storage: WeakMap<ISO7064, Partial<ISO7064Options>> = new WeakMap();
  *
  * @class ISO7064
  */
-export class ISO7064 {
+export abstract class ISO7064 {
 	constructor(options: Partial<ISO7064Options> = {}) {
 		storage.set(this, options);
 	}
