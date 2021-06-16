@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Ported ISO7064 to Typescript
+
 ### Fixed
 ### Added
+- Typescript types
+- ES Module compatibility
+
 ### Changed
 ### Removed
 
