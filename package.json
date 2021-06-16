@@ -2,9 +2,19 @@
 	"name": "@konfirm/iso7064",
 	"version": "2.0.1",
 	"description": "ISO/IEC 7064:2003 - Check character systems ",
-	"main": "main.js",
+	"main": "dist/cjs/main.js",
+	"module": "dist/esm/main.mjs",
+	"types": "dist/main.d.ts",
 	"scripts": {
-		"test": "./node_modules/.bin/lab -vcl"
+		"test": "ts-node node_modules/.bin/tape 'test/**/*.ts'",
+		"test:coverage": "nyc --reporter=html --require ts-node/register tape 'test/**/*.ts'",
+		"test:pretty": "nyc --require ts-node/register tape 'test/**/*.ts' | tap-spec",
+		"test:pretty:work": "nyc --require ts-node/register tape test/**/*.ts | tap-spec",
+		"prebuild": "npm run build:types",
+		"build:types": "tsc --declarationDir temp --declaration true --emitDeclarationOnly true",
+		"build": "rollup -c rollup.config.js",
+		"postbuild": "rm -rf temp",
+		"prepack": "npm run build"
 	},
 	"repository": {
 		"type": "git",
@@ -40,16 +50,26 @@
 	"author": "Rogier Spieker <rogier+iso@konfirm.eu>",
 	"license": "MIT",
 	"engines": {
-		"node": ">=8"
+		"node": ">=12"
 	},
 	"devDependencies": {
-		"@konfirm/labrat": "^2.0.2",
-		"eslint": "^7.8.1",
-		"eslint-config-prettier": "^6.1.0",
-		"eslint-plugin-prettier": "^3.1.0",
-		"prettier": "^2.1.1"
+		"@rollup/plugin-commonjs": "^19.0.0",
+		"@rollup/plugin-node-resolve": "^13.0.0",
+		"@rollup/plugin-typescript": "^8.2.1",
+		"@types/node": "^15.12.2",
+		"@types/tape": "^4.13.0",
+		"nyc": "^15.1.0",
+		"rollup": "^2.47.0",
+		"rollup-plugin-dts": "^3.0.1",
+		"rollup-plugin-terser": "^7.0.2",
+		"tap-spec": "^5.0.0",
+		"tape": "^5.2.2",
+		"template-literal-each": "^2.0.0",
+		"ts-node": "^9.1.1",
+		"tslib": "^2.2.0",
+		"typescript": "^4.2.4"
 	},
 	"dependencies": {
-		"@konfirm/alphabet": "^2.0.1"
+		"@konfirm/alphabet": "^3.0.1"
 	}
 }

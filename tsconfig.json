@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist",
+		"target": "es2015",
+		"declaration": false,
+		"strict": true,
+		"moduleResolution": "node",
+		"forceConsistentCasingInFileNames": true
+	},
+	"include": [
+		"./source"
+	]
+}

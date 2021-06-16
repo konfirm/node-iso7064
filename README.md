@@ -16,15 +16,18 @@ The ISO 7064 package provides several extendable classes of which all modulus-al
 
 ## Example
 
-```js
-const { Mod97_10 } = require('@konfirm/iso7064');
-```
-
-Or, using import
+Using import (ES Modules, Typescript)
 
 ```js
 import { Mod97_10 } from '@konfirm/iso7064';
 ```
+
+Or the CommonJS `require`
+
+```js
+const { Mod97_10 } = require('@konfirm/iso7064');
+```
+
 
 ## Available exports
 
@@ -42,6 +45,7 @@ import { Mod97_10 } from '@konfirm/iso7064';
 | [`Mod661_26`](#mod66126)          | `PureISO7064`   | The MOD 661-26 implementation                |
 | [`Mod1271_36`](#mod127136)        | `PureISO7064`   | The MOD 1271-36 implementation               |
 
+
 ## Methods
 
 All algorithm implementations have the same methods, please refer to their respective documentation for the details on the exact in- and outputs.
@@ -53,6 +57,22 @@ All algorithm implementations have the same methods, please refer to their respe
 | validate  | `string\|number` | `boolean` | validate the provided string (including checksum)                  |
 | generate  | `string\|number` | `string`  | calculate and append the checksum to the (normalized) input        |
 | factory   | `object`         | `ISO7064` | Create a new instance, override provided options, inherit the rest |
+
+### Example using `import` (ES Modules, Typescript)
+
+```js
+import { Mod11_2, Mod11_10 } from '@konfirm/iso7064';
+
+console.log(Mod11_2.checksum('079')); //  'X'
+console.log(Mod11_2.generate('079')); //  '079X'
+console.log(Mod11_2.validate('079X')); //  true
+
+console.log(Mod11_10.checksum('079')); // '2'
+console.log(Mod11_10.generate('079')); // '0792'
+console.log(Mod11_10.validate('0792')); // true
+```
+
+### Example using `require` (CommonJS)
 
 ```js
 const { Mod11_2, Mod11_10 } = require('@konfirm/iso7064');
@@ -79,7 +99,8 @@ The ISO 15706-2:2007 specification states it uses the hybrid system, with hexade
 This leads to the following code
 
 ```js
-const { HybridISO7064, Alphabet } = require('@konfirm/iso7064');
+// const { HybridISO7064, Alphabet } = require('@konfirm/iso7064');
+import { HybridISO7064, Alphabet } form '@konfirm/iso7064';
 
 const Mod17_16 = new HybridISO7064({
 	alphabet: Alphabet.from('0123456789ABCDEF')
@@ -404,7 +425,7 @@ There a quite a few implementations of the ISO 7064 specification in various pro
 
 # License
 
-MIT License Copyright (c) 2019 Rogier Spieker (Konfirm)
+MIT License Copyright (c) 2019-2021 Rogier Spieker (Konfirm)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
