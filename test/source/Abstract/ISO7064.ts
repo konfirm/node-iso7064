@@ -23,6 +23,8 @@ test('ISO7064 - properties', (t) => {
 
 		t.true(property in instance, `property ${property} exists`);
 		t.equal(instance[property as keyof ISO7064], value, `property ${property} is ${JSON.stringify(value)}`);
+
+		t.throws(() => (instance as any)[property] = value, new RegExp(`TypeError: Cannot set property ${property}`));
 	});
 
 	t.end();

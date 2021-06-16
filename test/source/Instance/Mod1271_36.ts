@@ -26,6 +26,8 @@ test('ISO7064/Mod1271_36 - properties', (t) => {
 		const { property, value } = record as any;
 
 		t.equal(Mod1271_36[property as keyof PureISO7064], value, `has ${property} with value ${value}`);
+
+		t.throws(() => (Mod1271_36 as any)[property] = value, new RegExp(`TypeError: Cannot set property ${property}`));
 	});
 
 	t.end()

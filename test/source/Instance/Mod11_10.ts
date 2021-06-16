@@ -26,6 +26,8 @@ test('ISO7064/Mod11_10 - properties', (t) => {
 		const { property, value } = record as any;
 
 		t.equal(Mod11_10[property as keyof HybridISO7064], value, `has property ${property} with value ${value}`);
+
+		t.throws(() => (Mod11_10 as any)[property] = value, new RegExp(`TypeError: Cannot set property ${property}`));
 	});
 
 	t.end();
