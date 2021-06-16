@@ -2,7 +2,9 @@ import * as test from 'tape';
 import each from 'template-literal-each';
 import { ISO7064 } from '../../../source/main';
 
-const instance = new ISO7064();
+class Wrapper extends ISO7064 { }
+
+const instance = new Wrapper();
 
 test('ISO7064 - properties', (t) => {
 	each`
@@ -44,7 +46,7 @@ test(`ISO7064 - method`, (t) => {
 });
 
 test('ISO7064 - factory', (t) => {
-	const iso7064 = new ISO7064();
+	const iso7064 = new Wrapper();
 	const instance = iso7064.factory();
 
 	t.true(instance.indices === iso7064.indices, 'inherits indices');
@@ -57,7 +59,7 @@ test('ISO7064 - factory', (t) => {
 });
 
 test('ISO7064 - throws if the checksum method is not implemented', (t) => {
-	const instance = new ISO7064();
+	const instance = new Wrapper();
 
 	t.throws(() => instance.checksum('foo'), 'Checksum method not implemented');
 
