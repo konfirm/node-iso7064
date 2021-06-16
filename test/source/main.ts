@@ -32,6 +32,13 @@ const {
 	Mod1271_36
 } = main;
 
+test('ISO7064/Alphabet - creates instances', (t) => {
+	t.equal(typeof main.Alphabet, 'function', 'Alphabet is a constructor');
+	t.true(main.Alphabet.from('abc') instanceof main.Alphabet, 'Alphabet from creates instances');
+
+	t.end();
+});
+
 test('ISO7064/inheritance - PureISO7064 is a ISO7064', (t) => {
 	t.true(PureISO7064.prototype instanceof ISO7064, 'PureISO7064 extends ISO7064');
 
