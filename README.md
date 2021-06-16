@@ -14,6 +14,8 @@ $ npm install --save @konfirm/iso7064
 
 The ISO 7064 package provides several extendable classes of which all modulus-algorithms are ready for immediate use.
 
+As of version 2.1 the ISO 7064 provides Typescript types and ES Modules.
+
 ## Example
 
 Using import (ES Modules, Typescript)

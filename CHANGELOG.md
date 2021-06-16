@@ -7,15 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Ported ISO7064 to Typescript
-
 ### Fixed
 ### Added
-- Typescript types
-- ES Module compatibility
-
 ### Changed
 ### Removed
+
+
+## [2.1.0] - 2021-06-16
+
+Ported ISO7064 to Typescript
+
+### Added
+
+- Typescript types
+- ES Module compatibility
 
 
 ## [2.0.1] - 2020-09-06
@@ -52,7 +57,8 @@ Ported ISO7064 to Typescript
 
 Initial release
 
-[unreleased]: https://github.com/konfirm/node-iso7064/compare/v2.0.1...HEAD
+[unreleased]: https://github.com/konfirm/node-iso7064/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/konfirm/node-iso7064/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/konfirm/node-iso7064/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/konfirm/node-iso7064/compare/v1.0.2...v2.0.0
 [1.0.2]: https://github.com/konfirm/node-iso7064/compare/v1.0.1...v1.0.2
