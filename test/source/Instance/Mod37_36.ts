@@ -37,7 +37,7 @@ test('ISO7064/Mod37_36 - properties', (t) => {
  *  https://github.com/LiosK/cdigit/blob/master/test/mod37_36.js
  */
 
-test(`ISO7064/Mod37_36 - normalize`, (t) => {
+test('ISO7064/Mod37_36 - normalize', (t) => {
 	each`
 		input                           | normal
 		--------------------------------|----------

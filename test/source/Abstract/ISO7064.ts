@@ -30,7 +30,7 @@ test('ISO7064 - properties', (t) => {
 	t.end();
 });
 
-test(`ISO7064 - method`, (t) => {
+test('ISO7064 - method', (t) => {
 	each`
 		method
 		-------

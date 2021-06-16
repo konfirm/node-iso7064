@@ -14,13 +14,10 @@ export class PureISO7064 extends ISO7064 {
 	 * @param {*} options
 	 * @memberof PureISO7064
 	 */
-	constructor({ indices, alphabet, radix = 2, ...rest }: Partial<ISO7064Options> = {}) {
-		super({
-			...rest,
-			alphabet,
-			indices: indices || (alphabet ? alphabet.slice(0, -1) : alphabet),
-			radix
-		});
+	constructor(options: Partial<ISO7064Options> = {}) {
+		const { alphabet, radix = 2, indices = alphabet?.slice(0, -1), ...rest } = options;
+
+		super({ alphabet, indices, radix, ...rest });
 	}
 
 	/**

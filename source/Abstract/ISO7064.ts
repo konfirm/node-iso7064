@@ -154,9 +154,7 @@ export abstract class ISO7064 {
 	 */
 	validate(input: string): boolean {
 		const { indices, alphabet, double } = this;
-		const pattern = new RegExp(
-			`([${indices}]+)([${alphabet}]{${Number(double) + 1}})`
-		);
+		const pattern = new RegExp(`([${indices}]+)([${alphabet}]{${Number(double) + 1}})`);
 		const match = this.normalize(input).match(pattern);
 
 		if (match) {

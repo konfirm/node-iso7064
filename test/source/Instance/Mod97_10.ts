@@ -88,7 +88,7 @@ test('ISO7064/Mod97_10 - generate', (t) => {
 	t.end();
 });
 
-test(`ISO7064/Mod97_10 - validate`, (t) => {
+test('ISO7064/Mod97_10 - validate', (t) => {
 	each`
 		input          | valid
 		---------------|----------
