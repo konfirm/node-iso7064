@@ -126,7 +126,7 @@ export abstract class ISO7064 {
 	 * @memberof ISO7064
 	 */
 	normalize(input: string): string {
-		const { indices } = this;
+		const { indices = 'a-zA-Z0-9' } = this;
 		const purge = new RegExp(`[^${indices}]+`, 'g');
 
 		return String(input)

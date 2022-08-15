@@ -67,3 +67,26 @@ test('ISO7064 - throws if the checksum method is not implemented', (t) => {
 
 	t.end();
 });
+
+test('ISO7064 - normalization fails if there are no indices', (t) => {
+	const instance = new Wrapper();
+
+	each`
+		input              | normal
+		-------------------|----------
+		0000-0002-1825-009 | 000000021825009
+		0000-0002-9079-593 | 000000029079593
+		ABCD747633         | ABCD747633
+		ef.gh-1234         | EFGH1234
+		418.12.925         | 41812925
+		17780-4390         | 177804390
+		82-00-10-7028943   | 8200107028943
+		98-25-46           | 982546
+	`((record) => {
+		const { input, normal } = record as any;
+
+		t.equal(instance.normalize(input), normal, `input ${input} is normalized into ${normal}`);
+	});
+
+	t.end();
+});

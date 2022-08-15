@@ -153,13 +153,13 @@ New instances (such as the prepared `Mod*` implementations) are configured using
 
 ### Methods
 
-| method    | input            | output         | description                                                        |
-| --------- | ---------------- | -------------- | ------------------------------------------------------------------ |
-| normalize | `string\|number` | `string`       | The `ISO7064` class does not have an `indices` prope               |
-| checksum  | `string\|number` | `throws Error` | will throw an Error, implementation in an extend is required       |
-| validate  | `string\|number` | `boolean`      | validate the provided string (including checksum)                  |
-| generate  | `string\|number` | `string`       | calculate and append the checksum to the (normalized) input        |
-| factory   | `object`         | `ISO7064`      | Create a new instance, override provided options, inherit the rest |
+| method    | input            | output         | description                                                                                                  |
+| --------- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`       | if no `indices` where provided during construction, normalization will remove any non-alphanumeric character |
+| checksum  | `string\|number` | `throws Error` | will throw an Error, implementation in an extend is required                                                 |
+| validate  | `string\|number` | `boolean`      | validate the provided string (including checksum)                                                            |
+| generate  | `string\|number` | `string`       | calculate and append the checksum to the (normalized) input                                                  |
+| factory   | `object`         | `ISO7064`      | Create a new instance, override provided options, inherit the rest                                           |
 
 ## PureISO7064
 
