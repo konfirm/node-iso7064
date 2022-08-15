@@ -6,15 +6,19 @@
 	"module": "dist/esm/main.mjs",
 	"types": "dist/main.d.ts",
 	"scripts": {
-		"test": "ts-node node_modules/.bin/tape 'test/**/*.ts'",
-		"test:coverage": "nyc --reporter=html --require ts-node/register tape 'test/**/*.ts'",
-		"test:pretty": "nyc --require ts-node/register tape 'test/**/*.ts' | tap-spec",
-		"test:pretty:work": "nyc --require ts-node/register tape test/**/*.ts | tap-spec",
-		"prebuild": "npm run build:types",
-		"build:types": "tsc --declarationDir temp --declaration true --emitDeclarationOnly true",
+		"test": "run-script-os",
+		"test:nix": "ts-node node_modules/tape/bin/tape 'test/**/*.ts'",
+		"test:win32": "ts-node node_modules/tape/bin/tape test/**/*.ts",
+		"test:coverage": "run-script-os",
+		"test:coverage:nix": "nyc --reporter=html --require ts-node/register tape 'test/**/*.ts' | tap-arc",
+		"test:coverage:win32": "nyc --reporter=html --require ts-node/register tape test/**/*.ts | tap-arc",
+		"test:pretty": "run-script-os",
+		"test:pretty:nix": "nyc --require ts-node/register tape 'test/**/*.ts' | tap-arc",
+		"test:pretty:win32": "nyc --require ts-node/register tape test/**/*.ts | tap-arc",
+		"prebuild": "tsc --declarationDir temp --declaration true --emitDeclarationOnly true",
 		"build": "rollup -c rollup.config.js",
 		"postbuild": "rm -rf temp",
-		"prepack": "npm run build"
+		"prepublish": "npm run build"
 	},
 	"repository": {
 		"type": "git",
@@ -53,21 +57,21 @@
 		"node": ">=12"
 	},
 	"devDependencies": {
-		"@rollup/plugin-commonjs": "^19.0.0",
-		"@rollup/plugin-node-resolve": "^13.0.0",
-		"@rollup/plugin-typescript": "^8.2.1",
-		"@types/node": "^15.12.2",
-		"@types/tape": "^4.13.0",
+		"@rollup/plugin-commonjs": "^22.0.2",
+		"@rollup/plugin-node-resolve": "^13.3.0",
+		"@rollup/plugin-typescript": "^8.3.4",
+		"@types/tape": "^4.13.2",
 		"nyc": "^15.1.0",
-		"rollup": "^2.52.0",
-		"rollup-plugin-dts": "^3.0.1",
+		"rollup": "^2.77.3",
+		"rollup-plugin-dts": "^4.2.2",
 		"rollup-plugin-terser": "^7.0.2",
-		"tap-spec": "^5.0.0",
-		"tape": "^5.2.2",
+		"run-script-os": "^1.1.6",
+		"tap-arc": "^0.3.5",
+		"tape": "^5.5.3",
 		"template-literal-each": "^2.0.0",
-		"ts-node": "^10.0.0",
-		"tslib": "^2.2.0",
-		"typescript": "^4.2.4"
+		"ts-node": "^10.9.1",
+		"tslib": "^2.4.0",
+		"typescript": "^4.7.4"
 	},
 	"dependencies": {
 		"@konfirm/alphabet": "^3.0.1"
