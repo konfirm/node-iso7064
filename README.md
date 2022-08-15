@@ -1,3 +1,6 @@
+[![Tests](https://github.com/konfirm/node-iso7064/actions/workflows/test.yml/badge.svg)](https://github.com/konfirm/node-iso7064/actions/workflows/test.yml)
+[![Release](https://github.com/konfirm/node-iso7064/actions/workflows/release.yml/badge.svg)](https://github.com/konfirm/node-iso7064/actions/workflows/release.yml)
+
 # ISO 7064
 
 An implementation of check digit calculating algorithms described in the [ISO/IEC 7064:2003](https://www.iso.org/standard/31531.html) specification. Check digits are primarily used to quickly detect eratic input and are not intended for cryptographical purposes.
@@ -133,7 +136,7 @@ New instances (such as the prepared `Mod*` implementations) are configured using
 | algorithm   | `string`                                               | `Custom`        | no               | the name of the algorithm              |
 | designation | `number`                                               | `0`             | no               | the designation number                 |
 | modulus     | `number`                                               | alphabet.length | yes              | the modules to use                     |
-| indices     | [`Alphabet`](https://github.com/konfirm/node-alphabet) | alphanet        | yes              | the indices (allowed characters)       |
+| indices     | [`Alphabet`](https://github.com/konfirm/node-alphabet) | alphabet        | yes              | the indices (allowed characters)       |
 | alphabet    | [`Alphabet`](https://github.com/konfirm/node-alphabet) | `undefined`     | yes              | The characters to use for the checksum |
 | radix       | `number`                                               | `undefined`     | yes              | the radix to use                       |
 | double      | `boolean`                                              | `false`         | yes              | use a double digit checksum            |
@@ -153,13 +156,13 @@ New instances (such as the prepared `Mod*` implementations) are configured using
 
 ### Methods
 
-| method    | input            | output         | description                                                        |
-| --------- | ---------------- | -------------- | ------------------------------------------------------------------ |
-| normalize | `string\|number` | `string`       | The `ISO7064` class does not have an `indices` prope               |
-| checksum  | `string\|number` | `throws Error` | will throw an Error, implementation in an extend is required       |
-| validate  | `string\|number` | `boolean`      | validate the provided string (including checksum)                  |
-| generate  | `string\|number` | `string`       | calculate and append the checksum to the (normalized) input        |
-| factory   | `object`         | `ISO7064`      | Create a new instance, override provided options, inherit the rest |
+| method    | input            | output         | description                                                                                                  |
+| --------- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------------------ |
+| normalize | `string\|number` | `string`       | if no `indices` where provided during construction, normalization will remove any non-alphanumeric character |
+| checksum  | `string\|number` | `throws Error` | will throw an Error, implementation in an extend is required                                                 |
+| validate  | `string\|number` | `boolean`      | validate the provided string (including checksum)                                                            |
+| generate  | `string\|number` | `string`       | calculate and append the checksum to the (normalized) input                                                  |
+| factory   | `object`         | `ISO7064`      | Create a new instance, override provided options, inherit the rest                                           |
 
 ## PureISO7064
 
@@ -427,7 +430,7 @@ There a quite a few implementations of the ISO 7064 specification in various pro
 
 # License
 
-MIT License Copyright (c) 2019-2021 Rogier Spieker (Konfirm)
+MIT License Copyright (c) 2019-2022 Rogier Spieker (Konfirm)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
