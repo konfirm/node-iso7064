@@ -12,6 +12,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 ### Removed
 
+## [2.1.1] - 2022-08-15
+
+### Fixed
+
+- Normalization using the ISO7064 Abstract class is now able to normalize remove all non-alphanumeric characters if no indices are set
+
+### Changed
+
+- Updated dependencies
+- Added support for running scripts on both Windows and *NIX-like systems
+- Moved from Travis to GitHub Actions
 
 ## [2.1.0] - 2021-06-16
 
@@ -57,7 +68,8 @@ Ported ISO7064 to Typescript
 
 Initial release
 
-[unreleased]: https://github.com/konfirm/node-iso7064/compare/v2.1.0...HEAD
+[unreleased]: https://github.com/konfirm/node-iso7064/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/konfirm/node-iso7064/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/konfirm/node-iso7064/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/konfirm/node-iso7064/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/konfirm/node-iso7064/compare/v1.0.2...v2.0.0
