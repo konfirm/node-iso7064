@@ -133,7 +133,7 @@ New instances (such as the prepared `Mod*` implementations) are configured using
 | algorithm   | `string`                                               | `Custom`        | no               | the name of the algorithm              |
 | designation | `number`                                               | `0`             | no               | the designation number                 |
 | modulus     | `number`                                               | alphabet.length | yes              | the modules to use                     |
-| indices     | [`Alphabet`](https://github.com/konfirm/node-alphabet) | alphanet        | yes              | the indices (allowed characters)       |
+| indices     | [`Alphabet`](https://github.com/konfirm/node-alphabet) | alphabet        | yes              | the indices (allowed characters)       |
 | alphabet    | [`Alphabet`](https://github.com/konfirm/node-alphabet) | `undefined`     | yes              | The characters to use for the checksum |
 | radix       | `number`                                               | `undefined`     | yes              | the radix to use                       |
 | double      | `boolean`                                              | `false`         | yes              | use a double digit checksum            |
