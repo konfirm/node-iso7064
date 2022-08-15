@@ -1,3 +1,6 @@
+[![Tests](https://github.com/konfirm/node-iso7064/actions/workflows/test.yml/badge.svg)](https://github.com/konfirm/node-iso7064/actions/workflows/test.yml)
+[![Release](https://github.com/konfirm/node-iso7064/actions/workflows/release.yml/badge.svg)](https://github.com/konfirm/node-iso7064/actions/workflows/release.yml)
+
 # ISO 7064
 
 An implementation of check digit calculating algorithms described in the [ISO/IEC 7064:2003](https://www.iso.org/standard/31531.html) specification. Check digits are primarily used to quickly detect eratic input and are not intended for cryptographical purposes.
