@@ -10,7 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Added
 ### Changed
+- updated dependencies
+
 ### Removed
+
 
 ## [2.1.1] - 2022-08-15
 
@@ -23,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated dependencies
 - Added support for running scripts on both Windows and *NIX-like systems
 - Moved from Travis to GitHub Actions
+
 
 ## [2.1.0] - 2021-06-16
 
