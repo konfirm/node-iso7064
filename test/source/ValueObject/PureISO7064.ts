@@ -1,5 +1,5 @@
 import * as test from 'tape';
-import each from 'template-literal-each';
+import { each } from 'template-literal-each';
 import { ISO7064, PureISO7064 } from '../../../source/main';
 
 const instance = new PureISO7064();
