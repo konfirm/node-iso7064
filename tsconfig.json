@@ -5,9 +5,8 @@
 		"declaration": false,
 		"strict": true,
 		"moduleResolution": "node",
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"allowSyntheticDefaultImports": true
 	},
-	"include": [
-		"./source"
-	]
+	"include": ["./source"]
 }
